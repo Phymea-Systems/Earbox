@@ -1,0 +1,2 @@
+UseTempDirectory = 0
+UseColorMask = 0
