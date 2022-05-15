@@ -3,7 +3,7 @@ This repository hosts code and technical information for the image acquisition a
 
 ## General Information
 
-The EARBOX system, is a solution that allows the capture of images (visible and infrared) of maize ears identified by QR codes or barcodes, stored on a removable USB hard drive. These photos are then transferred and analyzed on a desktop computer. The analysis software, based the Mask-RCNN deep learning algorithm, has been trained to be able to segment healthy maize kernels, whatever their aspect, through the wide diversity of shape and color of the species.
+The EARBOX system, is a solution that allows the capture of maize ear images (visible and infrared) identified by QR codes or barcodes. Images are stored on a removable USB hard drive. The images are can be transferred and analyzed on a desktop computer. The analysis software, based the Mask-RCNN deep learning algorithm, has been trained to be able to segment healthy maize kernels, whatever their aspect, through the wide diversity of shape and color of the specie.
 
 ## Technical documentation
 
@@ -68,9 +68,9 @@ earbox_maskrcnn.py <train or detect> --dataset /path/to/dataset/ [--weights /pat
 
 #### <u>*Analyser:*</u>
 
-The analysis algorithm is written using the MATLAB software with recommended version R2018A. 
+The analysis algorithm is written using the MATLAB software with recommended version R2016a. 
 
-Run the UI/main.fig file to start a GUI that allows to select images and run different traits analysis. Details about their computation can be found in the paper associated to this repository.
+Run the UI/main.fig file to start a GUI that allows the selection of ears and the extraction of the various traits extracted by the algorithm. Details about their computation can be found in the paper associated to this repository.
 
 ## Licences
 
