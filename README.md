@@ -1,9 +1,15 @@
-## PHYMEA_EARBOX_system
-The repository hosts code and technical information for the image acquisition and analysis method of the EARBOX system, presented in the method article: [Earbox, an open tool for high-throughput measurement of the spatial organization of maize ears and inference of novel traits.](https://www.biorxiv.org/content/10.1101/2021.12.20.473433v1)
+# PHYMEA_EARBOX_system
+This repository hosts code and technical information for the image acquisition and analysis method of the EARBOX system, presented in the method article: [Earbox, an open tool for high-throughput measurement of the spatial organization of maize ears and inference of novel traits.](https://www.biorxiv.org/content/10.1101/2021.12.20.473433v1)
 
-### General Information
+## General Information
 
 The EARBOX system, is a solution that allows the capture of images (visible and infrared) of maize ears identified by QR codes or barcodes, stored on a removable USB hard drive. These photos are then transferred and analyzed on a desktop computer. The analysis software, based the Mask-RCNN deep learning algorithm, has been trained to be able to segment healthy maize kernels, whatever their aspect, through the wide diversity of shape and color of the species.
+
+## Technical documentation
+
+### Acquisition:
+
+#### <u>*Hardware:*</u>
 
 The acquisition automaton integrates as main components:
 - 2x Raspberry PI (main: Pi3 B+, slave: Pi B+ or more)
@@ -22,13 +28,9 @@ The acquisition automaton integrates as main components:
 
 The imaging cabin and the system frame are made of aluminum profiles and structural elements provided by Elcom SAS, or directly made by Phymea through 3D printing or machining. None of these elements are crucial to the proper operation, only the dimensions of the imaging cabin (provided) must be respected to preserve the image resolution expected by the analysis. 
 
-Image analysis is broken down into two parts: ear and grain segmentation that binarizes ears and identifies features of interest, and data generation that analyzes binary images to extract ear phenotypic data.
+You will find the EagleCAD PCB files of the EARBOX PCB, as well as the references of the crucial components, a diagram of the connection of the different elements (RPi, power supply, etc.), and the dimensions of the imaging cabin under the *hardware* folder.
 
-### Technical documentation
-
-#### Acquisition:
-
-##### *Embedded Software:*
+#### <u>*Embedded Software:*</u>
 
 You will find the software embedded in the acquisition automaton, i.e. the Python code of the main Raspberry and the arduino code to control the motors, which is necessary for the operation of the EARBOX PCB which integrates an ATmega328P (8Mhz internal clock). To program the ATmega328P, you can use MiniCore's solution and an Arduino UNO used as programmer, as an interface for uploading the code (FTDI-like).
 
@@ -50,14 +52,26 @@ The list of environment variables need to run the program is the following :
 	'USB_SLOT_ADDRESS_1': second USB slot address
 ```
 
-##### *Hardware:*
+### Image analysis:
 
-You will find the EagleCAD PCB files of the EARBOX PCB, as well as the references of the crucial components, a diagram of the connection of the different elements (RPi, power supply, etc.), and the dimensions of the imaging cabin.
+Image analysis is broken down into two parts: ear and grain segmentation that binarizes ears and identifies features of interest, and data generation that analyzes binary images to extract ear phenotypic data.
 
-#### Image analysis:
+#### <u>*Segmentation:*</u>
 
-##### *Segmentation:*
+The segmentation algorithm uses the Mask-RCNN model as implemented in https://github.com/matterport/Mask_RCNN. The input layer as been modified to accept 4 channel images (RGB+IR). Outputs are binary masks with no overlap.
 
-##### *Analyser:*
+usage:
 
-### Licences
+```
+earbox_maskrcnn.py <train or detect> --dataset /path/to/dataset/ [--weights /path/to/weights.h5] [--output /path/to/output/] [--subset dataset sub-directory] [--crossval cross-validation dataset sub-directory]
+```
+
+#### <u>*Analyser:*</u>
+
+The analysis algorithm is written using the MATLAB software with recommended version R2018A. 
+
+Run the UI/main.fig file to start a GUI that allows to select images and run different traits analysis. Details about their computation can be found in the paper associated to this repository.
+
+## Licences
+
+The analysis software is licensed under the [X11 Licence](https://spdx.org/licenses/X11.html), while the acquisition hardware and code are licensed under the [Permissive CERN Open-Hardware v2 Licence (CERN-OHL-P)](https://ohwr.org/project/cernohl/wikis/Documents/CERN-OHL-version-2).
