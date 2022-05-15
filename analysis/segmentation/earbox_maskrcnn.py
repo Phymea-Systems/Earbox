@@ -3,7 +3,7 @@ Mask R-CNN for maize kernel counting and segmentation from Phymea-systems
 using Mask R-CNN implementation from https://github.com/matterport/Mask_RCNN
 Licensed under the MIT License (see LICENSE for details)
 
-Written by Timothé Leroux
+Written by Tim Leroux
 """
 
 import matplotlib
